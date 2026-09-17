@@ -52,7 +52,7 @@ const Contact = () => {
             </div>
             <div className="flex items-start gap-4">
               <div className="p-3 bg-gold/10 rounded-lg"><Phone className="text-gold" size={24} /></div>
-              <div><h4 className="font-semibold text-dark-navy">Phone</h4><p className="text-dark-navy/70">0787400972</p></div>
+              <div><h4 className="font-semibold text-dark-navy">Phone</h4><p className="text-dark-navy/70">0792728289</p></div>
             </div>
             <div className="flex items-start gap-4">
               <div className="p-3 bg-gold/10 rounded-lg"><MapPin className="text-gold" size={24} /></div>

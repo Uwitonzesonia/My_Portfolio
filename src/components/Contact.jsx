@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -11,8 +13,27 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus('sending');
+
+    emailjs
+      .send(
+        'service_yjbkd1a',      // your Service ID
+        'template_uv12ucq',     // your Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        '9dcSVCPATNwWk_60_'     // your Public Key
+      )
+      .then(() => {
+        setStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch((error) => {
+        console.error('EmailJS error:', error);
+        setStatus('error');
+      });
   };
 
   return (
@@ -54,9 +75,15 @@ const Contact = () => {
               <label className="block text-dark-navy font-medium mb-2">Message</label>
               <textarea name="message" value={formData.message} onChange={handleChange} required rows="4" className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
             </div>
-            <button type="submit" className="w-full bg-gold text-white py-4 rounded-lg font-semibold hover:bg-gold/90 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
-              <Send size={20} /> Send Message
+            <button type="submit" disabled={status === 'sending'} className="w-full bg-gold text-white py-4 rounded-lg font-semibold hover:bg-gold/90 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+              <Send size={20} /> {status === 'sending' ? 'Sending...' : 'Send Message'}
             </button>
+            {status === 'sent' && (
+              <p className="text-center text-green-600 font-medium">Thank you! Your message has been sent.</p>
+            )}
+            {status === 'error' && (
+              <p className="text-center text-red-600 font-medium">Something went wrong. Please try again or email me directly.</p>
+            )}
           </motion.form>
         </div>
       </div>

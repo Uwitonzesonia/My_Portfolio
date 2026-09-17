@@ -11,7 +11,7 @@ const Projects = () => {
       image: "💍",
       gradient: "from-rose-400/20 to-amber-200/20",
       demoLink: "https://rebecca-paul.netlify.app/",
-      codeLink: "https://github.com/Uwitonzesonia/Rebecca-Paul"
+      codeLink: null
     },
     {
       title: "Cleaning Service Website",
@@ -20,7 +20,7 @@ const Projects = () => {
       image: "🧹",
       gradient: "from-blue-400/20 to-cyan-200/20",
       demoLink: "#",
-      codeLink: "#"
+      codeLink: null
     }
   ];
 
@@ -44,7 +44,9 @@ const Projects = () => {
                 </div>
                 <div className="flex gap-4">
                   <a href={project.demoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-gold font-semibold hover:gap-3 transition-all"><ExternalLink size={18} /> Live Demo</a>
-                  <a href={project.codeLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-dark-navy/60 font-semibold hover:text-dark-navy transition-all"><Github size={18} /> Code</a>
+                  {project.codeLink && (
+                    <a href={project.codeLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-dark-navy/60 font-semibold hover:text-dark-navy transition-all"><Github size={18} /> Code</a>
+                  )}
                 </div>
               </div>
             </motion.div>

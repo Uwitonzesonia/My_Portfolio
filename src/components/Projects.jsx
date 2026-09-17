@@ -9,14 +9,18 @@ const Projects = () => {
       description: "Built a responsive wedding website featuring event details, photo galleries, RSVP information, and a clean, elegant UI optimized for desktop and mobile.",
       tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
       image: "💍",
-      gradient: "from-rose-400/20 to-amber-200/20"
+      gradient: "from-rose-400/20 to-amber-200/20",
+      demoLink: "https://rebecca-paul.netlify.app/",
+      codeLink: "https://github.com/Uwitonzesonia/Rebecca-Paul"
     },
     {
       title: "Cleaning Service Website",
       description: "Developed a modern, responsive website for a cleaning business with service sections, contact forms, and a user-friendly interface to help customers request services easily.",
       tags: ["React", "JavaScript", "Tailwind CSS", "Vite"],
       image: "🧹",
-      gradient: "from-blue-400/20 to-cyan-200/20"
+      gradient: "from-blue-400/20 to-cyan-200/20",
+      demoLink: "#",
+      codeLink: "#"
     }
   ];
 
@@ -39,8 +43,8 @@ const Projects = () => {
                   {project.tags.map((tag, idx) => (<span key={idx} className="px-3 py-1 bg-gray-100 text-sm font-medium text-dark-navy/80 rounded-full">{tag}</span>))}
                 </div>
                 <div className="flex gap-4">
-                  <a href="#" className="flex items-center gap-2 text-gold font-semibold hover:gap-3 transition-all"><ExternalLink size={18} /> Live Demo</a>
-                  <a href="#" className="flex items-center gap-2 text-dark-navy/60 font-semibold hover:text-dark-navy transition-all"><Github size={18} /> Code</a>
+                  <a href={project.demoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-gold font-semibold hover:gap-3 transition-all"><ExternalLink size={18} /> Live Demo</a>
+                  <a href={project.codeLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-dark-navy/60 font-semibold hover:text-dark-navy transition-all"><Github size={18} /> Code</a>
                 </div>
               </div>
             </motion.div>

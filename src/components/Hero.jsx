@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import myPhoto from '../assets/picture1.png';
 
 const Hero = () => {
   return (
@@ -28,12 +29,13 @@ const Hero = () => {
               <a href="#contact" className="p-2 bg-gray-100 rounded-full hover:bg-gold/20 transition-colors"><Mail size={22} className="text-dark-navy" /></a>
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="flex justify-center">
-            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-tr from-gold/20 to-gold/10 flex items-center justify-center relative">
-              <div className="absolute inset-4 rounded-full border-4 border-gold/30"></div>
-              <span className="text-7xl">👩‍💻</span>
-              <div className="absolute -bottom-2 -right-2 bg-white shadow-xl rounded-lg px-4 py-2 text-sm font-semibold text-dark-navy border border-gray-100">✨ Available for work</div>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="flex flex-col items-center">
+            <div className="w-72 h-80 md:w-96 md:h-[28rem] rounded-lg overflow-hidden relative shadow-xl border border-gray-200">
+              <img src={myPhoto} alt="Sonia Uwitonze" className="w-full h-full object-cover object-top" />
             </div>
+            <a href="#contact" className="mt-4 inline-flex items-center gap-2 bg-white shadow-lg rounded-full px-4 py-2 text-sm font-semibold text-dark-navy border border-gray-100 hover:border-gold hover:text-gold transition-all">
+              ✨ Available for work
+            </a>
           </motion.div>
         </div>
         <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="flex justify-center mt-12">

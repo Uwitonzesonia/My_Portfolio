@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 
 const About = () => {
-  const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'PHP', 'Python', 'Figma'];
+  const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'Tailwind CSS', 'PHP', 'Python', 'Figma'];
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -21,8 +21,11 @@ const About = () => {
             <p className="text-lg text-dark-navy/70 leading-relaxed mb-6">
               Hi, I'm Sonia, a passionate Frontend Web Developer dedicated to building modern, responsive, and user-friendly websites. I specialize in creating clean, functional, and visually appealing web experiences using HTML, CSS, JavaScript, React, Tailwind CSS, PHP, Python, and Figma.
             </p>
+            <p className="text-lg text-dark-navy/70 leading-relaxed mb-6">
+              I also build mobile applications with React Native, and have completed 6 mobile apps alongside my web projects — including a wedding website and a cleaning service website. Across both platforms, I focus on responsive design, performance, and intuitive user experiences.
+            </p>
             <p className="text-lg text-dark-navy/70 leading-relaxed mb-8">
-              I've developed projects including a wedding website and a cleaning service website, focusing on responsive design, performance, and intuitive user experiences. I enjoy transforming ideas into professional websites that are both attractive and easy to use.
+              I enjoy transforming ideas into professional websites and mobile apps that are both attractive and easy to use.
             </p>
             <div className="grid grid-cols-2 gap-3">
               {skills.map((skill, index) => (

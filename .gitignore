@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Admin page saves (local dev only)
+content.local.json
+public/uploads/

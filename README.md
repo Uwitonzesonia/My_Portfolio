@@ -1,16 +1,52 @@
-# React + Vite
+# Sonia Uwitonze — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite + Tailwind + framer-motion portfolio with:
+- an **AI assistant** that answers visitors' questions about my CV, projects, skills and contact details
+- an **admin page** to edit everything without touching code
 
-Currently, two official plugins are available:
+## ✏️ Editing my portfolio (no code)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Go to **`yoursite.com/#admin`** (locally: `http://localhost:5173/#admin`).
+2. Log in with the admin password.
+3. Edit any tab — **Profile, Projects, Services, Skills, Experience, CV** — add, delete or reorder items.
+4. Press **Save changes**. The website and the AI assistant update straight away.
 
-## React Compiler
+Tips:
+- **Upload a new CV** in the CV tab — it replaces the old one immediately.
+- **Download backup** saves all your content as a file, just in case.
+- Technologies / languages / job titles: type one, press **Enter** to add it, click **×** to remove.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## One-time setup
 
-## Expanding the Oxlint configuration
+### Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+cp .env.example .env.local   # then fill in ADMIN_PASSWORD (and ANTHROPIC_API_KEY for the AI)
+npm run dev
+```
+
+Locally, admin changes are saved to `content.local.json` and uploads to `public/uploads/` (both git-ignored).
+
+### On Vercel
+
+1. Push this repo to GitHub and import it at vercel.com (framework: Vite).
+2. **Storage → Create → Blob**, choose **Public** access, and connect it to this project. (This adds `BLOB_READ_WRITE_TOKEN` automatically.)
+3. **Settings → Environment Variables**, add:
+   - `ADMIN_PASSWORD` — a long password only you know
+   - `ANTHROPIC_API_KEY` — for the AI assistant (from platform.claude.com)
+4. Redeploy.
+
+Without `ANTHROPIC_API_KEY` the assistant still works, using built-in answers from your content.
+
+## How it works (for developers)
+
+| Part | File |
+| --- | --- |
+| Default content (used until you save from the admin page) | `src/data/profile.js` |
+| Loads saved content for every section | `src/data/ContentContext.jsx` → `GET /api/content` |
+| Admin page (`#admin`) | `src/admin/AdminPanel.jsx` → `POST /api/admin?action=login\|save\|cv` |
+| Storage (Vercel Blob, or a local file in dev) | `api/_lib/store.js` |
+| Password check / input cleaning | `api/_lib/auth.js`, `api/_lib/validate.js` |
+| AI assistant | `api/chat.js` (Claude, grounded in the saved content), `src/components/ChatAssistant.jsx` |
+| Offline AI fallback | `src/data/localAnswers.js` |

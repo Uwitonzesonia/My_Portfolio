@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Phone, MapPin } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, Copy, Check, Download, Linkedin, Github } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import SectionHeader from './SectionHeader';
+import { useContent } from '../data/ContentContext';
 
 const Contact = () => {
+  const { profile } = useContent();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,18 +56,37 @@ const Contact = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title="Let's" highlight="Connect" subtitle="Have a project in mind? Let's work together to bring your ideas to life!" />
         <div className="grid md:grid-cols-2 gap-12">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-8">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="p-3 bg-brand/15 rounded-xl"><Mail className="text-brand-light" size={24} /></div>
-              <div><h4 className="font-semibold text-white">Email</h4><p className="text-gray-400">uwitonzesonia2005@gmail.com</p></div>
+              <div className="min-w-0">
+                <h4 className="font-semibold text-white">Email</h4>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href={`mailto:${profile.email}`} className="text-gray-400 hover:text-brand-light break-all transition-colors">{profile.email}</a>
+                  <button onClick={copyEmail} className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full border border-white/15 text-gray-300 hover:border-brand hover:text-brand-light transition-colors" aria-label="Copy email address">
+                    {copied ? <><Check size={13} className="text-green-400" /> Copied</> : <><Copy size={13} /> Copy</>}
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="flex items-start gap-4">
               <div className="p-3 bg-brand/15 rounded-xl"><Phone className="text-brand-light" size={24} /></div>
-              <div><h4 className="font-semibold text-white">Phone</h4><p className="text-gray-400">0792728289</p></div>
+              <div><h4 className="font-semibold text-white">Phone</h4><a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="text-gray-400 hover:text-brand-light transition-colors">{profile.phone}</a></div>
             </div>
             <div className="flex items-start gap-4">
               <div className="p-3 bg-brand/15 rounded-xl"><MapPin className="text-brand-light" size={24} /></div>
-              <div><h4 className="font-semibold text-white">Location</h4><p className="text-gray-400">Available Worldwide 🌍</p></div>
+              <div><h4 className="font-semibold text-white">Location</h4><p className="text-gray-400">{profile.location} · Available worldwide 🌍</p></div>
+            </div>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <a href={profile.cv} download className="btn-shine inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-full font-semibold hover:bg-brand-dark transition-colors shadow-lg shadow-brand/30">
+                <Download size={18} /> Download CV
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-white/15 text-white px-5 py-2.5 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-colors">
+                <Linkedin size={18} /> LinkedIn
+              </a>
+              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-white/15 text-white px-5 py-2.5 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-colors">
+                <Github size={18} /> GitHub
+              </a>
             </div>
             <div className="mt-8 p-6 card">
               <p className="text-gray-300 font-medium">💬 "I value clear communication, attention to detail, and delivering high-quality work on time."</p>

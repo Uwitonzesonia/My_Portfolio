@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Bot } from 'lucide-react';
+import { openAssistant } from './ChatAssistant';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +40,14 @@ const Navbar = () => {
               </a>
             ))}
           </div>
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white" aria-label="Toggle menu">
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          <div className="flex items-center gap-3">
+            <button onClick={() => openAssistant()} className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold bg-brand text-white px-4 py-2 rounded-full hover:bg-brand-dark transition-colors shadow-lg shadow-brand/30">
+              <Bot size={16} /> Ask my AI
+            </button>
+            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white" aria-label="Toggle menu">
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
       <AnimatePresence>

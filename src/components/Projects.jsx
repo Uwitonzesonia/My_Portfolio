@@ -1,134 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Bot } from 'lucide-react';
 import SectionHeader from './SectionHeader';
-
-// status: 'Live' | 'In Progress' | 'Completed'
-// category: 'Web' | 'Mobile' | 'Java'
-const projects = [
-  {
-    title: 'Ubuzima — Health Support App',
-    description: 'Mobile app for mild illness: symptom check → guidance → nearest pharmacy → doctor, with body readings from a smartwatch or phone (Health Connect / HealthKit).',
-    tags: ['React Native', 'Expo', 'TypeScript', 'Health Connect'],
-    image: '🩺',
-    category: 'Mobile',
-    status: 'In Progress',
-    demoLink: null,
-    codeLink: 'https://github.com/Uwitonzesonia/health-support-app',
-  },
-  {
-    title: 'Bara — Restaurant Management Dashboard',
-    description: 'Team project at Solvit Africa: a SaaS dashboard for restaurants with inventory, menu, billing, transactions, reports and AI insights pages.',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-    image: '🍽️',
-    category: 'Web',
-    status: 'In Progress',
-    demoLink: null,
-    codeLink: 'https://github.com/Solvit-Africa-Training-Center/bara-frontend',
-  },
-  {
-    title: 'Movie & Series Website',
-    description: 'Streaming-style website with movies, series, trends, collections, Golden Globe picks, pricing plans and FAQ, connected to an API.',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'React Router'],
-    image: '🎬',
-    category: 'Web',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: 'https://github.com/Solvit-Africa-Training-Center/react-typescript-learning-material-vite',
-  },
-  {
-    title: 'Netflix — Movie Ticket Booking App',
-    description: 'Cross-platform mobile app to browse movies, view details, book seats, sign up and keep your tickets, with a responsive layout.',
-    tags: ['React Native', 'Expo Router', 'TypeScript'],
-    image: '🎟️',
-    category: 'Mobile',
-    status: 'In Progress',
-    demoLink: null,
-    codeLink: 'https://github.com/Uwitonzesonia/Netflix',
-  },
-  {
-    title: 'Solvit Student Portal',
-    description: 'School portal with login, student and lecturer pages, enrolled courses, assignments, attendance, class roster and grading.',
-    tags: ['React', 'TypeScript', 'Firebase', 'React Router'],
-    image: '🎓',
-    category: 'Web',
-    status: 'In Progress',
-    demoLink: null,
-    codeLink: 'https://github.com/Uwitonzesonia/SOLVIT-APP',
-  },
-  {
-    title: 'Weather App',
-    description: 'Search any city for live weather from the OpenWeatherMap API, with Firebase login and protected routes.',
-    tags: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
-    image: '🌦️',
-    category: 'Web',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: null,
-  },
-  {
-    title: 'Paul & Rebecca Wedding Website',
-    description: 'Responsive wedding website featuring event details, photo galleries, RSVP information, and a clean, elegant UI for desktop and mobile.',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
-    image: '💍',
-    category: 'Web',
-    status: 'Live',
-    demoLink: 'https://rebecca-paul.netlify.app/',
-    codeLink: null,
-  },
-  {
-    title: 'Cleaning Service Website',
-    description: 'Modern, responsive website for a cleaning business with service sections, contact forms, and an easy way for customers to request services.',
-    tags: ['React', 'JavaScript', 'Tailwind CSS', 'Vite'],
-    image: '🧹',
-    category: 'Web',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: null,
-  },
-  {
-    title: 'LUGX Gaming Landing Page',
-    description: 'My first Tailwind project: a gaming store landing page with banner, top games and categories sections.',
-    tags: ['HTML', 'Tailwind CSS'],
-    image: '🎮',
-    category: 'Web',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: 'https://github.com/Uwitonzesonia/tailwind',
-  },
-  {
-    title: 'Task Manager',
-    description: 'A simple task manager to add, track and organise daily tasks.',
-    tags: ['React', 'TypeScript', 'Vite'],
-    image: '✅',
-    category: 'Web',
-    status: 'In Progress',
-    demoLink: null,
-    codeLink: null,
-  },
-  {
-    title: 'Banking Management System',
-    description: 'Desktop banking application to manage customers and accounts, built with a layered model / DAO / view structure.',
-    tags: ['Java', 'Swing', 'JDBC', 'PostgreSQL'],
-    image: '🏦',
-    category: 'Java',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: null,
-  },
-  {
-    title: 'Patient Management Information System',
-    description: 'Desktop system to register and manage patient records using Hibernate ORM with a relational database.',
-    tags: ['Java', 'Hibernate', 'PostgreSQL'],
-    image: '🏥',
-    category: 'Java',
-    status: 'Completed',
-    demoLink: null,
-    codeLink: null,
-  },
-];
-
-const filters = ['All', 'Web', 'Mobile', 'Java'];
+import { openAssistant } from './ChatAssistant';
+import { useContent } from '../data/ContentContext';
 
 const statusStyles = {
   Live: 'bg-green-500/15 text-green-400 border-green-500/30',
@@ -137,7 +12,9 @@ const statusStyles = {
 };
 
 const Projects = () => {
+  const { projects } = useContent();
   const [active, setActive] = useState('All');
+  const filters = ['All', ...new Set(projects.map((p) => p.category))];
   const visible = active === 'All' ? projects : projects.filter((p) => p.category === active);
 
   return (
@@ -166,7 +43,7 @@ const Projects = () => {
             {visible.map((project, index) => (
               <motion.div
                 layout
-                key={project.title}
+                key={`${index}-${project.title}`}
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -185,11 +62,11 @@ const Projects = () => {
                   <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed flex-1">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-5">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="px-2.5 py-1 bg-white/5 border border-white/10 text-xs font-medium text-gray-300 rounded-full">{tag}</span>
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="px-2.5 py-1 bg-white/5 border border-white/10 text-xs font-medium text-gray-300 rounded-full">{tag}</span>
                     ))}
                   </div>
-                  <div className="flex gap-5">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
                     {project.demoLink && (
                       <a href={project.demoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-brand-light font-semibold hover:gap-3 transition-all"><ExternalLink size={18} /> Live Demo</a>
                     )}
@@ -199,6 +76,12 @@ const Projects = () => {
                     {!project.demoLink && !project.codeLink && (
                       <span className="text-sm text-gray-500 italic">Demo coming soon</span>
                     )}
+                    <button
+                      onClick={() => openAssistant(`Tell me about the ${project.title} project`)}
+                      className="ml-auto flex items-center gap-1.5 text-sm font-semibold text-brand-light border border-brand/40 px-3 py-1 rounded-full hover:bg-brand hover:text-white hover:border-brand transition-colors"
+                    >
+                      <Bot size={15} /> Ask AI
+                    </button>
                   </div>
                 </div>
               </motion.div>

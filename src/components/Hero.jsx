@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, MapPin, Bot, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import myPhoto from '../assets/picture1.png';
-
-const roles = ['Frontend Web Developer', 'React Developer', 'Mobile App Builder', 'UI/UX Enthusiast'];
+import { openAssistant } from './ChatAssistant';
+import { useContent } from '../data/ContentContext';
 
 // Types and deletes each role in turn
 const useTypewriter = (words, speed = 80, pause = 1500) => {
@@ -12,14 +12,14 @@ const useTypewriter = (words, speed = 80, pause = 1500) => {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const word = words[index];
+    const word = words[index % words.length] || '';
     if (!deleting && text === word) {
       const t = setTimeout(() => setDeleting(true), pause);
       return () => clearTimeout(t);
     }
     if (deleting && text === '') {
       setDeleting(false);
-      setIndex((index + 1) % words.length);
+      setIndex((index + 1) % Math.max(words.length, 1));
       return;
     }
     const t = setTimeout(() => {
@@ -41,7 +41,10 @@ const item = {
 };
 
 const Hero = () => {
-  const role = useTypewriter(roles);
+  const { profile } = useContent();
+  const role = useTypewriter(profile.roles);
+  const nameParts = profile.name.split(' ');
+  const lastName = nameParts.length > 1 ? nameParts.pop() : '';
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-ink">
@@ -55,30 +58,36 @@ const Hero = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div variants={container} initial="hidden" animate="show">
+            <motion.div variants={item} className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full border border-brand/40 bg-brand/10 text-xs sm:text-sm text-brand-light">
+              <MapPin size={14} /> {profile.heroBadge}
+            </motion.div>
             <motion.p variants={item} className="text-brand-light font-semibold text-lg mb-2">👋 Hello, I'm</motion.p>
             <motion.h1 variants={item} className="text-5xl md:text-6xl font-extrabold text-white mb-4">
-              Sonia <span className="text-gradient">Uwitonze</span>
+              {nameParts.join(' ')} <span className="text-gradient">{lastName}</span>
             </motion.h1>
             <motion.h2 variants={item} className="text-2xl md:text-3xl font-semibold text-gray-300 mb-6 h-10">
               {role}
               <span className="inline-block w-0.5 h-7 bg-brand ml-1 align-middle animate-blink" />
             </motion.h2>
             <motion.p variants={item} className="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed">
-              I build modern, responsive websites, web applications and mobile apps that help businesses grow. Specializing in React, React Native, JavaScript/TypeScript, PHP and clean UI/UX.
+              {profile.heroIntro}
             </motion.p>
             <motion.div variants={item} className="flex flex-wrap gap-4">
               <a href="#contact" className="btn-shine bg-brand text-white px-8 py-3 rounded-full font-semibold hover:bg-brand-dark transition-all transform hover:scale-105 shadow-lg shadow-brand/40">
                 Start a Project
               </a>
-              <a href="#projects" className="border-2 border-white/20 text-white px-8 py-3 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-all">
-                See the Projects
+              <button onClick={() => openAssistant()} className="inline-flex items-center gap-2 border-2 border-brand/60 text-white px-6 py-3 rounded-full font-semibold hover:bg-brand/15 hover:border-brand transition-all">
+                <Bot size={18} /> Ask my AI
+              </button>
+              <a href={profile.cv} download className="inline-flex items-center gap-2 border-2 border-white/20 text-white px-6 py-3 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-all">
+                <Download size={18} /> Download CV
               </a>
             </motion.div>
             <motion.div variants={item} className="flex gap-4 mt-8">
               {[
-                { href: 'https://github.com/Uwitonzesonia', Icon: Github, label: 'GitHub' },
-                { href: 'https://www.linkedin.com/in/uwitonze-sonia/', Icon: Linkedin, label: 'LinkedIn' },
-                { href: '#contact', Icon: Mail, label: 'Email' },
+                { href: profile.github, Icon: Github, label: 'GitHub' },
+                { href: profile.linkedin, Icon: Linkedin, label: 'LinkedIn' },
+                { href: `mailto:${profile.email}`, Icon: Mail, label: 'Email' },
               ].map(({ href, Icon, label }) => (
                 <motion.a
                   key={label}
@@ -100,7 +109,7 @@ const Hero = () => {
               {/* Spinning blue ring behind the photo */}
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand via-blue-900 to-brand-light opacity-80 blur-sm animate-gradient-x [background-size:200%_200%]" />
               <div className="relative w-72 h-80 md:w-96 md:h-[28rem] rounded-2xl overflow-hidden bg-ink-800">
-                <img src={myPhoto} alt="Sonia Uwitonze" className="w-full h-full object-cover object-top" />
+                <img src={myPhoto} alt={profile.name} className="w-full h-full object-cover object-top" />
               </div>
             </motion.div>
             <a href="#contact" className="mt-6 inline-flex items-center gap-2 bg-ink-800 rounded-full px-4 py-2 text-sm font-semibold text-white border border-white/10 hover:border-brand hover:text-brand-light transition-all">

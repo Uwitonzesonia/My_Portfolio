@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { Code2, Smartphone, Lightbulb } from 'lucide-react';
 import SectionHeader from './SectionHeader';
+import { useContent } from '../data/ContentContext';
 
 // Counts up from 0 when it scrolls into view
 const Counter = ({ to, suffix = '' }) => {
@@ -18,12 +19,6 @@ const Counter = ({ to, suffix = '' }) => {
   return <span ref={ref}>{value}{suffix}</span>;
 };
 
-const stats = [
-  { value: 12, suffix: '+', label: 'Projects built' },
-  { value: 10, suffix: '+', label: 'Technologies' },
-  { value: 2, suffix: '', label: 'Trainings & internships' },
-];
-
 const highlights = [
   { icon: Code2, title: 'Web Development', text: 'Responsive websites and dashboards with React, Next.js, TypeScript and Tailwind.' },
   { icon: Smartphone, title: 'Mobile Apps', text: 'Cross-platform apps with React Native and Expo for Android and iOS.' },
@@ -31,6 +26,12 @@ const highlights = [
 ];
 
 const About = () => {
+  const { profile, projects, skillCategories } = useContent();
+  const stats = [
+    { value: projects.length, suffix: '+', label: 'Projects built' },
+    { value: skillCategories.reduce((n, c) => n + c.skills.length, 0), suffix: '+', label: 'Technologies' },
+    { value: profile.languages.length, suffix: '', label: 'Languages spoken' },
+  ];
   return (
     <section id="about" className="py-20 bg-ink-900 relative overflow-hidden">
       <div className="absolute -left-40 top-1/2 w-96 h-96 bg-brand/10 rounded-full blur-3xl" />
@@ -39,15 +40,14 @@ const About = () => {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-5 text-gray-300 leading-relaxed">
-            <p>
-              I'm <span className="text-white font-semibold">Sonia Uwitonze</span>, a developer from Rwanda who loves building clean, useful products for the web and mobile.
-            </p>
-            <p>
-              I've trained at <span className="text-brand-light font-medium">Gym Rwanda</span> and <span className="text-brand-light font-medium">Solvit Africa</span>, where I worked on real team projects with Git, pull requests and Figma designs. I'm also studying, building Java desktop systems alongside my web work.
-            </p>
-            <p>
-              Right now I'm building <span className="text-white font-medium">Ubuzima</span>, a health support app that helps people with mild illness find guidance, pharmacies and doctors.
-            </p>
+            {profile.about.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+            <div className="flex flex-wrap gap-2">
+              {profile.languages.map((l) => (
+                <span key={l} className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">🗣️ {l}</span>
+              ))}
+            </div>
 
             <div className="grid grid-cols-3 gap-4 pt-4">
               {stats.map((s) => (

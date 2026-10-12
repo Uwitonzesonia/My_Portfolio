@@ -1,14 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
-
-const skillCategories = [
-  { title: 'Frontend', skills: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Figma'] },
-  { title: 'Mobile', skills: ['React Native', 'Expo', 'Expo Router'] },
-  { title: 'Backend', skills: ['PHP', 'Python', 'Node.js', 'Express.js', 'Java', 'Firebase'] },
-  { title: 'Database', skills: ['SQL', 'MySQL', 'PostgreSQL', 'Hibernate'] },
-  { title: 'Tools & Methods', skills: ['Git', 'GitHub', 'VS Code', 'Vite', 'Responsive Design'] },
-];
+import { useContent } from '../data/ContentContext';
 
 const chip = {
   hidden: { opacity: 0, scale: 0.6 },
@@ -16,6 +9,7 @@ const chip = {
 };
 
 const TechSkills = () => {
+  const { skillCategories } = useContent();
   return (
     <section id="skills" className="py-20 bg-ink">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +18,7 @@ const TechSkills = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, catIndex) => (
             <motion.div
-              key={category.title}
+              key={catIndex}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: catIndex * 0.1 }}
@@ -39,9 +33,9 @@ const TechSkills = () => {
                 viewport={{ once: true }}
                 className="flex flex-wrap justify-center gap-2"
               >
-                {category.skills.map((skill) => (
+                {category.skills.map((skill, i) => (
                   <motion.span
-                    key={skill}
+                    key={i}
                     variants={chip}
                     whileHover={{ scale: 1.1, y: -2 }}
                     className="px-3 py-1 bg-white/5 rounded-full text-sm font-medium text-gray-300 border border-white/10 hover:bg-brand hover:text-white hover:border-brand transition-colors cursor-default"

@@ -22,7 +22,7 @@ Tips:
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in ADMIN_PASSWORD (and ANTHROPIC_API_KEY for the AI)
+cp .env.example .env.local   # then fill in ADMIN_PASSWORD (and GEMINI_API_KEY for the AI)
 npm run dev
 ```
 
@@ -34,10 +34,10 @@ Locally, admin changes are saved to `content.local.json` and uploads to `public/
 2. **Storage → Create → Blob**, choose **Public** access, and connect it to this project. (This adds `BLOB_READ_WRITE_TOKEN` automatically.)
 3. **Settings → Environment Variables**, add:
    - `ADMIN_PASSWORD` — a long password only you know
-   - `ANTHROPIC_API_KEY` — for the AI assistant (from platform.claude.com)
+   - `GEMINI_API_KEY` — for the AI assistant (free key from aistudio.google.com/apikey)
 4. Redeploy.
 
-Without `ANTHROPIC_API_KEY` the assistant still works, using built-in answers from your content.
+Without `GEMINI_API_KEY` the assistant still works, using built-in answers from your content.
 
 ## How it works (for developers)
 
@@ -48,5 +48,5 @@ Without `ANTHROPIC_API_KEY` the assistant still works, using built-in answers fr
 | Admin page (`#admin`) | `src/admin/AdminPanel.jsx` → `POST /api/admin?action=login\|save\|cv` |
 | Storage (Vercel Blob, or a local file in dev) | `api/_lib/store.js` |
 | Password check / input cleaning | `api/_lib/auth.js`, `api/_lib/validate.js` |
-| AI assistant | `api/chat.js` (Claude, grounded in the saved content), `src/components/ChatAssistant.jsx` |
+| AI assistant | `api/chat.js` (Google Gemini, grounded in the saved content), `src/components/ChatAssistant.jsx` |
 | Offline AI fallback | `src/data/localAnswers.js` |

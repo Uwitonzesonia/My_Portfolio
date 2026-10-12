@@ -65,6 +65,7 @@ const ChatAssistant = () => {
         headers: { 'Content-Type': 'application/json' },
         // Skip the canned greeting; the API expects the conversation to start with the visitor
         body: JSON.stringify({ messages: history.slice(1) }),
+        signal: AbortSignal.timeout(40000), // don't keep visitors waiting forever
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       reply = (await res.json()).reply;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Phone, MapPin, Copy, Check, Download, Linkedin, Github } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, Copy, Check, Download, Linkedin, Github, FileText } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import SectionHeader from './SectionHeader';
 import { useContent } from '../data/ContentContext';
@@ -80,6 +80,9 @@ const Contact = () => {
             <div className="flex flex-wrap gap-3 pt-2">
               <a href={profile.cv} download className="btn-shine inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-full font-semibold hover:bg-brand-dark transition-colors shadow-lg shadow-brand/30">
                 <Download size={18} /> Download CV
+              </a>
+              <a href="#cv" className="inline-flex items-center gap-2 border border-white/15 text-white px-5 py-2.5 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-colors">
+                <FileText size={18} /> View CV online
               </a>
               <a href={profile.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-white/15 text-white px-5 py-2.5 rounded-full font-semibold hover:border-brand hover:text-brand-light transition-colors">
                 <Linkedin size={18} /> LinkedIn

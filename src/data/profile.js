@@ -19,17 +19,21 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/uwitonze-sonia/',
   github: 'https://github.com/Uwitonzesonia',
   cv: '/Uwitonze_Sonia_CV.pdf',
+  website: '', // your live portfolio address, e.g. https://sonia-uwitonze.vercel.app (shown on the CV)
   availability: 'Open to internships, junior developer roles and freelance web/mobile projects.',
   summary:
-    'Software Engineering undergraduate building practical skills in full-stack, web, and mobile application development. ' +
-    'Hands-on experience with JavaScript, TypeScript, React, Next.js, React Native, Node.js, Express.js, PHP, Python, Java, MySQL, PostgreSQL, Firebase, HTML, CSS and Git/GitHub. ' +
-    'Experienced with APIs, databases, responsive interfaces and application logic. Currently growing professional and collaborative skills through Solvit Africa. ' +
-    'Eager to contribute to software teams, learn quickly, and turn real-world requirements into functional digital solutions.',
+    'Software Engineering student at AUCA and full-stack developer who builds web and mobile products end to end — ' +
+    'from Figma designs to working React, Next.js and React Native apps backed by Node.js, PHP, Firebase and SQL databases. ' +
+    'Currently building Ubuzima, a health-support mobile app, and developing the frontend of a restaurant management SaaS in a team at Solvit Africa. ' +
+    'Learns fast, writes clean responsive UI, and turns real-world problems into software people can use.',
   education: [
     { school: 'AUCA (Adventist University of Central Africa)', degree: "Bachelor's in Software Engineering (in progress)", date: 'September 2024 – Present' },
     { school: 'Ecole Secondaire Gikondo', degree: 'High School Diploma (A1) — Mathematics, Computer Science & Economics (71.61%)', date: '2019 – 2023' },
   ],
-  languages: ['Kinyarwanda (native)', 'English (very good)', 'Swahili (good)', 'French (intermediate)'],
+  languages: ['Kinyarwanda (native)', 'English (B2 Upper Intermediate, EF SET)', 'Swahili (good)', 'French (intermediate)'],
+  certifications: [
+    { name: 'EF SET English Certificate — 52/100, B2 Upper Intermediate (CEFR)', issuer: 'EF Standard English Test', date: 'July 2026', link: 'https://cert.efset.org/DSLBfv' },
+  ],
   strengths: ['Problem solving', 'Team collaboration', 'Communication', 'Adaptability', 'Leadership', 'Time management', 'Willingness to learn'],
   interests: ['Software development', 'Technology', 'Handball', 'Reading', 'Music', 'Movies'],
 };
@@ -50,21 +54,21 @@ export const services = [
 export const experiences = [
   {
     icon: 'rocket',
-    title: 'Solvit Africa — Software Development Program',
+    title: 'Solvit Africa — Software Development Program (Trainee Developer)',
     date: '2026 – Present',
-    description: 'Building real products in teams — a restaurant management dashboard (Next.js) and a movie & series website (React + TypeScript) — using Git branches, pull requests and Figma designs.',
+    description: 'Develop the frontend of Bara, a restaurant management SaaS (Next.js, TypeScript, Tailwind CSS, shadcn/ui), turning Figma designs into dashboard, inventory, billing and reports pages. Integrated a REST API into a team-built movie & series platform (React, TypeScript). Work in agile teams with Git branching, pull requests and code review.',
   },
   {
     icon: 'briefcase',
     title: 'Gym Rwanda Programming Training',
     date: 'April 2025 – September 2025',
-    description: 'Intensive programming training focused on problem-solving, coding skills, and real-world application. Built mini tech projects and improved hands-on coding experience.',
+    description: 'Completed a six-month intensive programming training focused on problem solving and real-world coding. Built hands-on projects including a Tailwind CSS gaming landing page and JavaScript applications.',
   },
   {
     icon: 'award',
-    title: 'NetBrain — Introduction to Network Operations (Internship)',
+    title: 'NetBrain — Network Operations Intern',
     date: '2025',
-    description: 'Practical exposure to networking concepts, cybersecurity basics, troubleshooting, network protocols and topology design.',
+    description: 'Practised network troubleshooting, protocols and topology design. Built foundations in network security and cybersecurity.',
   },
   {
     icon: 'graduation',
@@ -87,7 +91,7 @@ export const skillCategories = [
 export const projects = [
   {
     title: 'Ubuzima — Health Support App',
-    description: 'Mobile app for mild illness: symptom check → guidance → nearest pharmacy → doctor, with body readings from a smartwatch or phone (Health Connect / HealthKit).',
+    description: 'Building a cross-platform health app that guides people with mild illness from a symptom check to care advice, the nearest pharmacy, and a doctor. Reads body vitals from smartwatches and phones through Health Connect (Android) and HealthKit (iOS).',
     tags: ['React Native', 'Expo', 'TypeScript', 'Health Connect'],
     image: '🩺',
     category: 'Mobile',
@@ -97,7 +101,7 @@ export const projects = [
   },
   {
     title: 'Bara — Restaurant Management Dashboard',
-    description: 'Team project at Solvit Africa: a SaaS dashboard for restaurants with inventory, menu, billing, transactions, reports and AI insights pages.',
+    description: 'Developing, in a team at Solvit Africa, the frontend of a restaurant management SaaS: operations dashboard, inventory, menu, billing, transactions, reports and AI-insights pages built from Figma designs.',
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
     image: '🍽️',
     category: 'Web',
@@ -107,7 +111,7 @@ export const projects = [
   },
   {
     title: 'Movie & Series Website',
-    description: 'Streaming-style website with movies, series, trends, collections, Golden Globe picks, pricing plans and FAQ, connected to an API.',
+    description: 'Built with a team a responsive streaming-style platform with movies, series, trends, collections, pricing plans and FAQ, powered by a REST API and React Router.',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'React Router'],
     image: '🎬',
     category: 'Web',
@@ -117,7 +121,7 @@ export const projects = [
   },
   {
     title: 'Netflix — Movie Ticket Booking App',
-    description: 'Cross-platform mobile app to browse movies, view details, book seats, sign up and keep your tickets, with a responsive layout.',
+    description: 'Building a cross-platform cinema app where users browse movies, view details, pick seats, sign up and keep their tickets, with file-based navigation and a responsive layout.',
     tags: ['React Native', 'Expo Router', 'TypeScript'],
     image: '🎟️',
     category: 'Mobile',
@@ -127,7 +131,7 @@ export const projects = [
   },
   {
     title: 'Solvit Student Portal',
-    description: 'School portal with login, student and lecturer pages, enrolled courses, assignments, attendance, class roster and grading.',
+    description: 'Building a role-based school portal with Firebase authentication: student and lecturer dashboards for courses, assignments, attendance, class rosters and grading.',
     tags: ['React', 'TypeScript', 'Firebase', 'React Router'],
     image: '🎓',
     category: 'Web',
@@ -137,7 +141,7 @@ export const projects = [
   },
   {
     title: 'Weather App',
-    description: 'Search any city for live weather from the OpenWeatherMap API, with Firebase login and protected routes.',
+    description: 'Built a weather app that shows live conditions for any city from the OpenWeatherMap API, with Firebase login and protected routes.',
     tags: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
     image: '🌦️',
     category: 'Web',
@@ -147,7 +151,7 @@ export const projects = [
   },
   {
     title: 'Paul & Rebecca Wedding Website',
-    description: 'Responsive wedding website featuring event details, photo galleries, RSVP information, and a clean, elegant UI for desktop and mobile.',
+    description: 'Designed and launched a responsive wedding website for a real client, with event details, photo galleries and RSVP information.',
     tags: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
     image: '💍',
     category: 'Web',
@@ -157,7 +161,7 @@ export const projects = [
   },
   {
     title: 'Clean Lady — Cleaning Service Website',
-    description: 'Cleaning company website with service sections and a booking workflow that saves requests to Google Sheets through Google Apps Script.',
+    description: 'Built a cleaning company website whose booking form saves customer requests automatically to Google Sheets through Google Apps Script.',
     tags: ['React', 'Vite', 'Tailwind CSS', 'Google Apps Script'],
     image: '🧹',
     category: 'Web',
@@ -167,7 +171,7 @@ export const projects = [
   },
   {
     title: 'LUGX Gaming Landing Page',
-    description: 'My first Tailwind project: a gaming store landing page with banner, top games and categories sections.',
+    description: 'Built a gaming store landing page with Tailwind CSS: hero banner, top games and categories sections.',
     tags: ['HTML', 'Tailwind CSS'],
     image: '🎮',
     category: 'Web',
@@ -177,7 +181,7 @@ export const projects = [
   },
   {
     title: 'Task Manager',
-    description: 'A simple task manager to add, track and organise daily tasks.',
+    description: 'Building a task manager to add, track and organise daily tasks.',
     tags: ['React', 'TypeScript', 'Vite'],
     image: '✅',
     category: 'Web',
@@ -187,7 +191,7 @@ export const projects = [
   },
   {
     title: 'Banking Management System',
-    description: 'Java desktop banking application to manage customers and accounts, built with a layered model / DAO / view structure.',
+    description: 'Built a Java Swing desktop banking system to manage customers and accounts, using a layered model / DAO / view architecture with JDBC and PostgreSQL.',
     tags: ['Java', 'Swing', 'JDBC', 'PostgreSQL'],
     image: '🏦',
     category: 'Java',
@@ -197,7 +201,7 @@ export const projects = [
   },
   {
     title: 'Patient Management Information System',
-    description: 'Java desktop system to register and manage patient records using Hibernate ORM with a relational database.',
+    description: 'Built a Java desktop system to register and manage patient records, using Hibernate ORM with PostgreSQL.',
     tags: ['Java', 'Hibernate', 'PostgreSQL'],
     image: '🏥',
     category: 'Java',
@@ -218,7 +222,8 @@ export function buildKnowledgeBase(content = defaultContent) {
     `LOCATION: ${p.location}`,
     `AVAILABILITY: ${p.availability}`,
     `CONTACT: email ${p.email} | phone ${p.phone} | LinkedIn ${p.linkedin} | GitHub ${p.github}`,
-    `CV: visitors can download it with the "Download CV" button (file ${p.cv}).`,
+    `CV: visitors can download it with the "Download CV" button (file ${p.cv}) or view it online at /#cv.`,
+    ...(p.website ? [`PORTFOLIO WEBSITE: ${p.website}`] : []),
     '',
     `SUMMARY: ${p.summary}`,
     '',
@@ -242,6 +247,7 @@ export function buildKnowledgeBase(content = defaultContent) {
       return `- ${pr.title} [${pr.category}, ${pr.status}] — ${pr.description} Tech: ${pr.tags.join(', ')}.${links ? ` Links: ${links}.` : ''}`;
     }),
     '',
+    `CERTIFICATIONS: ${(p.certifications || []).map((c) => `${c.name} (${c.issuer}, ${c.date})${c.link ? ` ${c.link}` : ''}`).join('; ') || 'none listed'}`,
     `LANGUAGES: ${p.languages.join(', ')}`,
     `STRENGTHS: ${p.strengths.join(', ')}`,
     `INTERESTS: ${p.interests.join(', ')}`,

@@ -168,6 +168,7 @@ const ProfileTab = ({ draft, set }) => {
           <Field label="Phone" value={p.phone} onChange={setP('phone')} />
           <Field label="LinkedIn URL" value={p.linkedin} onChange={setP('linkedin')} placeholder="https://www.linkedin.com/in/…" />
           <Field label="GitHub URL" value={p.github} onChange={setP('github')} placeholder="https://github.com/…" />
+          <Field label="Portfolio website (shown on your CV)" value={p.website} onChange={setP('website')} placeholder="https://your-portfolio.vercel.app" />
           <Field label="Location" value={p.location} onChange={setP('location')} />
           <Field label="Availability" value={p.availability} onChange={setP('availability')} />
         </div>
@@ -190,6 +191,25 @@ const ProfileTab = ({ draft, set }) => {
         <TagInput label="Languages you speak" values={p.languages} onChange={setP('languages')} />
         <TagInput label="Strengths" values={p.strengths} onChange={setP('strengths')} />
         <TagInput label="Interests" values={p.interests} onChange={setP('interests')} />
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="text-lg font-bold text-white">Certifications</h3>
+        <ListEditor
+          items={p.certifications || []}
+          onChange={setP('certifications')}
+          itemTitle={(c) => c.name}
+          newItem={() => ({ name: '', issuer: '', date: '', link: '' })}
+          addLabel="Add certification"
+          renderFields={(c, setF) => (
+            <div className="grid sm:grid-cols-2 gap-3">
+              <Field label="Certificate name" value={c.name} onChange={(v) => setF('name', v)} />
+              <Field label="Issued by" value={c.issuer} onChange={(v) => setF('issuer', v)} />
+              <Field label="Date" value={c.date} onChange={(v) => setF('date', v)} placeholder="July 2026" />
+              <Field label="Verification link (optional)" value={c.link} onChange={(v) => setF('link', v)} placeholder="https://…" />
+            </div>
+          )}
+        />
       </section>
 
       <section className="space-y-4">
@@ -315,6 +335,13 @@ const CvTab = ({ draft, onUpload, uploading }) => {
           <p className="font-semibold text-white">Current CV</p>
           <a href={draft.profile.cv} target="_blank" rel="noreferrer" className="text-sm text-brand-light underline break-all">{draft.profile.cv}</a>
         </div>
+      </div>
+      <div className="bg-brand/10 border border-brand/30 rounded-xl p-5 space-y-2">
+        <p className="font-semibold text-white">Your online CV updates by itself</p>
+        <p className="text-sm text-gray-300">
+          The CV page at <a href="#cv" target="_blank" rel="noreferrer" className="text-brand-light underline">yoursite.com/#cv</a> is built from everything you edit here.
+          To refresh the downloadable PDF too: open it, click <b>Download PDF</b>, choose “Save as PDF”, then upload that file below.
+        </p>
       </div>
       <div className="bg-ink-800 border border-white/10 rounded-xl p-5 space-y-3">
         <p className="font-semibold text-white">Upload a new CV</p>

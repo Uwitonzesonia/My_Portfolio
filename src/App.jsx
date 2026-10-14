@@ -10,24 +10,29 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ChatAssistant from './components/ChatAssistant';
 
-// The admin page only loads when someone opens yoursite.com/#admin
+// These pages only load when someone opens yoursite.com/#admin or yoursite.com/#cv
 const AdminPanel = lazy(() => import('./admin/AdminPanel'));
+const CvPage = lazy(() => import('./cv/CvPage'));
 
-const isAdminHash = () => window.location.hash === '#admin';
+const pages = { '#admin': AdminPanel, '#cv': CvPage };
+const currentPage = () => pages[window.location.hash] || null;
 
 function App() {
-  const [admin, setAdmin] = useState(isAdminHash);
+  const [Page, setPage] = useState(currentPage);
 
   useEffect(() => {
-    const onHashChange = () => setAdmin(isAdminHash());
+    const onHashChange = () => {
+      setPage(currentPage);
+      if (!window.location.hash) window.scrollTo(0, 0);
+    };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  if (admin) {
+  if (Page) {
     return (
-      <Suspense fallback={<div className="min-h-screen grid place-items-center text-gray-400">Loading admin…</div>}>
-        <AdminPanel />
+      <Suspense fallback={<div className="min-h-screen grid place-items-center text-gray-400">Loading…</div>}>
+        <Page />
       </Suspense>
     );
   }

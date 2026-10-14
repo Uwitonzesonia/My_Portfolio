@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, MapPin, Bot, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
-import myPhoto from '../assets/picture1.png';
+import myPhoto from '../assets/profile-photo.png';
 import { openAssistant } from './ChatAssistant';
 import { useContent } from '../data/ContentContext';
 

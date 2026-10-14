@@ -105,13 +105,13 @@ const Hero = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="flex flex-col items-center">
-            <motion.div animate={{ y: [0, -12, 0] }} transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }} className="relative">
-              {/* Spinning blue ring behind the photo */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand via-blue-900 to-brand-light opacity-80 blur-sm animate-gradient-x [background-size:200%_200%]" />
+            <div className="relative">
+              {/* Blue glow behind the photo */}
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand via-blue-900 to-brand-light opacity-80 blur-sm" />
               <div className="relative w-72 h-80 md:w-96 md:h-[28rem] rounded-2xl overflow-hidden bg-ink-800">
                 <img src={myPhoto} alt={profile.name} className="w-full h-full object-cover object-top" />
               </div>
-            </motion.div>
+            </div>
             <a href="#contact" className="mt-6 inline-flex items-center gap-2 bg-ink-800 rounded-full px-4 py-2 text-sm font-semibold text-white border border-white/10 hover:border-brand hover:text-brand-light transition-all">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
